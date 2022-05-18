@@ -1,35 +1,42 @@
-import { Controller, Request, Get, Post, Render, UseGuards, Header } from "@nestjs/common";
-import { AuthService } from "./auth/auth.service";
-import { LocalAuthGuard } from "./auth/local-auth.guard";
-import { JwtAuthGuard } from "./auth/jwt-auth.guard";
-import { AppService } from "./app.service";
+import { Controller, Get, Post, Request, Res, Render, UseGuards, UseFilters } from "@nestjs/common";
+import { Response } from "express";
+import { LoginGuard } from "./auth/guards/login.guard";
+import { AuthenticatedGuard } from "./auth/guards/authenticated.guard";
+import { AuthExceptionsFilter } from "./auth/filter/auth-exceptions.filter";
 
 @Controller()
+@UseFilters(AuthExceptionsFilter)
 export class AppController {
-  constructor(private authService: AuthService, private appService: AppService) {
-  }
 
-  @Get("auth/login")
+  @Get("/")
   @Render("login")
-  index() {
-    return { message: "Login page" };
+  index(@Request() req): { message: string } {
+    return { message: req.flash("loginError") };
   }
 
-  @UseGuards(LocalAuthGuard)
-  @Post("auth/login")
-  async login(@Request() req) {
-    return this.authService.login(req.user);
+  @UseGuards(LoginGuard)
+  @Post("login")
+  login(@Res() res: Response): void {
+    res.redirect("/home");
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(AuthenticatedGuard)
+  @Get("home")
+  @Render("home")
+  getHome(@Request() req) {
+    return { user: req.user };
+  }
+
+  @UseGuards(AuthenticatedGuard)
   @Get("profile")
+  @Render("profile")
   getProfile(@Request() req) {
-    return req.user;
+    return { user: req.user };
   }
 
-  @Get()
-  @Render("index")
-  root() {
-    return { message: "Hello my friend" };
+  @Get("/logout")
+  logout(@Request() req, @Res() res: Response): void {
+    req.logout();
+    res.redirect("/");
   }
 }
