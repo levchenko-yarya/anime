@@ -2,7 +2,7 @@ import { Module } from "@nestjs/common";
 import { MovieService } from "./movie.service";
 import { MovieController } from "./movie.controller";
 import { movieProviders } from "./movie.provider";
-import { DatabaseModule } from "../database.module";
+import { DatabaseModule } from "../database/database.module";
 
 @Module({
   imports: [DatabaseModule],
