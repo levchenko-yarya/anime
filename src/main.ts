@@ -5,6 +5,7 @@ import { join } from "path";
 import flash = require("connect-flash");
 import * as session from "express-session";
 import * as passport from "passport";
+import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -23,6 +24,14 @@ async function bootstrap() {
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(flash());
+
+  const config = new DocumentBuilder()
+    .setTitle("Movie example")
+    .setDescription("The movie API description")
+    .setVersion("1.0")
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup("api", app, document);
 
   await app.listen(3000);
 }
