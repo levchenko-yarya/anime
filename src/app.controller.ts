@@ -9,8 +9,8 @@ import { UsersService } from "./users/users.service";
 @Controller()
 @UseFilters(AuthExceptionsFilter)
 export class AppController {
-  constructor(private usersService: UsersService) {
-  }
+  // constructor(private usersService: UsersService) {
+  // }
 
   @Get("/")
   @Render("home")
@@ -22,11 +22,11 @@ export class AppController {
   getRegister() {
   }
 
-  @Post("/register")
-  async postRegister(@Body() createUserDto: CreateUserDto, @Res() res: Response) {
-    await this.usersService.create(createUserDto);
-    res.redirect("/");
-  }
+  // @Post("/register")
+  // async postRegister(@Body() createUserDto: CreateUserDto, @Res() res: Response) {
+  //   await this.usersService.create(createUserDto);
+  //   res.redirect("/");
+  // }
 
   @Get("/login")
   @Render("login")
