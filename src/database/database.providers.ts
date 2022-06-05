@@ -1,9 +1,21 @@
-import * as mongoose from "mongoose";
+import { Sequelize } from "sequelize-typescript";
+import { Genre } from "../genre/entities/genre.entity";
 
 export const databaseProviders = [
   {
-    provide: "DATABASE_CONNECTION",
-    useFactory: (): Promise<typeof mongoose> =>
-      mongoose.connect("mongodb://localhost/anime")
+    provide: "SEQUELIZE",
+    useFactory: async () => {
+      const sequelize = new Sequelize({
+        dialect: "mysql",
+        host: "localhost",
+        port: 3306,
+        username: "admin",
+        password: "123456",
+        database: "test"
+      });
+      sequelize.addModels([Genre]);
+      await sequelize.sync();
+      return sequelize;
+    }
   }
 ];
