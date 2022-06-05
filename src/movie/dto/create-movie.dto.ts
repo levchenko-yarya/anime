@@ -1,11 +1,7 @@
 export class CreateMovieDto {
   readonly name: string;
-  readonly series: number;
-  readonly episodes: number; 
+  readonly description: string;
+  readonly year: number;
+  readonly episodes: number;
+  readonly url: string;
 }
-
-// export class CreateMovieDto {
-//   readonly name: string;
-//   readonly genre: string;
-//   readonly url: string;
-// }

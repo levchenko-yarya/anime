@@ -1,32 +1,33 @@
-import { Model } from "mongoose";
 import { Inject, Injectable } from "@nestjs/common";
-import { Movie } from "./interfaces/movie.interface";
 import { CreateMovieDto } from "./dto/create-movie.dto";
 import { UpdateMovieDto } from "./dto/update-movie.dto";
+import { Movie } from "./entities/movie.entity";
 
 @Injectable()
 export class MovieService {
-  constructor(@Inject("MOVIE_MODEL") private movieModel: Model<Movie>) {
+  constructor(@Inject("MOVIES_REPOSITORY") private moviesRepository: typeof Movie) {
   }
 
-  async findAll() {
-    return await this.movieModel.find().exec();
+  async findAll(): Promise<Movie[]> {
+    return await this.moviesRepository.findAll();
   }
 
-  async findOne(id) {
-    return await this.movieModel.findById(id).exec();
+  async findOne(id): Promise<Movie> {
+    return await this.moviesRepository.findOne({ where: { id } });
   }
 
-  async create(createMovieDto: CreateMovieDto) {
-    const movie = await new this.movieModel(createMovieDto);
+  create(createMovieDto: CreateMovieDto) {
+    const movie = new this.moviesRepository(createMovieDto);
     return movie.save();
   }
 
-  update(id, updateMovieDto: UpdateMovieDto) {
-    return this.movieModel.findByIdAndUpdate(id, updateMovieDto, { new: true });
+  async update(id, updateMovieDto: UpdateMovieDto) {
+    const movie = await this.moviesRepository.findOne({ where: { id } });
+    await movie.update(updateMovieDto);
   }
 
-  remove(id) {
-    return this.movieModel.findByIdAndRemove(id);
+  async remove(id): Promise<void> {
+    const movie = await this.findOne(id);
+    await movie.destroy();
   }
 }

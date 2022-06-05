@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize-typescript";
 import { Genre } from "../genre/entities/genre.entity";
+import { Movie } from "../movie/entities/movie.entity";
 
 export const databaseProviders = [
   {
@@ -14,6 +15,7 @@ export const databaseProviders = [
         database: "test"
       });
       sequelize.addModels([Genre]);
+      sequelize.addModels([Movie]);
       await sequelize.sync();
       return sequelize;
     }
