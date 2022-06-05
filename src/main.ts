@@ -2,9 +2,6 @@ import { NestFactory } from "@nestjs/core";
 import { NestExpressApplication } from "@nestjs/platform-express";
 import { AppModule } from "./app.module";
 import { join } from "path";
-import flash = require("connect-flash");
-import * as session from "express-session";
-import * as passport from "passport";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 
 async function bootstrap() {
@@ -13,17 +10,6 @@ async function bootstrap() {
   app.useStaticAssets(join(__dirname, "..", "public"));
   app.setBaseViewsDir(join(__dirname, "..", "views"));
   app.setViewEngine("hbs");
-
-  app.use(
-    session({
-      secret: "anime-app",
-      resave: false,
-      saveUninitialized: false
-    })
-  );
-  app.use(passport.initialize());
-  app.use(passport.session());
-  app.use(flash());
 
   const config = new DocumentBuilder()
     .setTitle("Movie example")
