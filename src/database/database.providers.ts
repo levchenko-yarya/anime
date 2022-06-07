@@ -1,6 +1,7 @@
 import { Sequelize } from "sequelize-typescript";
 import { Genre } from "../genre/entities/genre.entity";
 import { Movie } from "../movie/entities/movie.entity";
+import { Link } from '../Movie/entities/link.entity';
 
 export const databaseProviders = [
   {
@@ -16,6 +17,9 @@ export const databaseProviders = [
       });
       sequelize.addModels([Genre]);
       sequelize.addModels([Movie]);
+      sequelize.addModels([Link]);
+      Genre.belongsToMany(Movie, { through: Link });
+      Movie.belongsToMany(Genre, { through: Link });
       await sequelize.sync();
       return sequelize;
     }
