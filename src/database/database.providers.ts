@@ -4,6 +4,7 @@ import { Movie } from "../movie/entities/movie.entity";
 import { Link } from "../Movie/entities/link.entity";
 import { User } from "../user/entities/user.entity";
 import { View } from "../view/entities/view.entity";
+import { Status } from "../status/entities/status.entity";
 
 export const databaseProviders = [
   {
@@ -22,8 +23,12 @@ export const databaseProviders = [
       sequelize.addModels([Link]);
       sequelize.addModels([User]);
       sequelize.addModels([View]);
+      sequelize.addModels([Status]);
       Genre.belongsToMany(Movie, { through: Link });
       Movie.belongsToMany(Genre, { through: Link });
+      View.hasMany(Status);
+      Movie.hasMany(Status);
+      User.hasMany(Status);
       await sequelize.sync();
       return sequelize;
     }
