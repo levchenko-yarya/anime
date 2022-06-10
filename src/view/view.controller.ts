@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from "@nestjs/commo
 import { ViewService } from "./view.service";
 import { CreateViewDto } from "./dto/create-view.dto";
 import { UpdateViewDto } from "./dto/update-view.dto";
+import { ApiTags } from "@nestjs/swagger";
 
+@ApiTags('view')
 @Controller("view")
 export class ViewController {
   constructor(private readonly viewService: ViewService) {
