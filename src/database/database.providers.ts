@@ -26,6 +26,7 @@ export const databaseProviders = [
       sequelize.addModels([Status]);
       Genre.belongsToMany(Movie, { through: Link });
       Movie.belongsToMany(Genre, { through: Link });
+      User.hasMany(View);
       View.hasMany(Status);
       Movie.hasMany(Status);
       User.hasMany(Status);
