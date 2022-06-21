@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize-typescript";
 import { Genre } from "../genre/entities/genre.entity";
 import { Movie } from "../movie/entities/movie.entity";
-import { Link } from "../Movie/entities/link.entity";
+import { Link } from "../movie/entities/link.entity";
 import { User } from "../user/entities/user.entity";
 import { View } from "../view/entities/view.entity";
 import { Status } from "../status/entities/status.entity";
