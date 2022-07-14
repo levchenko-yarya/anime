@@ -1,5 +1,4 @@
-import { Model, Table } from "sequelize-typescript";
+import { Model, Table } from 'sequelize-typescript';
 
 @Table
-export class Status extends Model {
-}
+export class Status extends Model {}

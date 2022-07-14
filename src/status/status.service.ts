@@ -1,12 +1,13 @@
-import { Inject, Injectable } from "@nestjs/common";
-import { CreateStatusDto } from "./dto/create-status.dto";
-import { UpdateStatusDto } from "./dto/update-status.dto";
-import { Status } from "./entities/status.entity";
+import { Inject, Injectable } from '@nestjs/common';
+import { CreateStatusDto } from './dto/create-status.dto';
+import { UpdateStatusDto } from './dto/update-status.dto';
+import { Status } from './entities/status.entity';
 
 @Injectable()
 export class StatusService {
-  constructor(@Inject("STATUSES_REPOSITORY") private statusesRepository: typeof Status) {
-  }
+  constructor(
+    @Inject('STATUSES_REPOSITORY') private statusesRepository: typeof Status,
+  ) {}
 
   async findAll(): Promise<Status[]> {
     return await this.statusesRepository.findAll();

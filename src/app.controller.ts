@@ -1,12 +1,10 @@
-import { Controller, Get, Render } from "@nestjs/common";
+import { Controller, Get, Render } from '@nestjs/common';
 
 @Controller()
 export class AppController {
-
-  @Get("/")
-  @Render("index")
+  @Get('/')
+  @Render('index')
   getHome() {
-    return { message: 'Anime'}
+    return { message: 'Anime' };
   }
-
 }

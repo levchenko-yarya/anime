@@ -1,15 +1,14 @@
-import { Inject, Injectable } from "@nestjs/common";
-import { CreateGenreDto } from "./dto/create-genre.dto";
-import { UpdateGenreDto } from "./dto/update-genre.dto";
-import { Genre } from "./entities/genre.entity";
+import { Inject, Injectable } from '@nestjs/common';
+import { CreateGenreDto } from './dto/create-genre.dto';
+import { UpdateGenreDto } from './dto/update-genre.dto';
+import { Genre } from './entities/genre.entity';
 
 @Injectable()
 export class GenreService {
   constructor(
-    @Inject("GENRES_REPOSITORY")
-    private genresRepository: typeof Genre
-  ) {
-  }
+    @Inject('GENRES_REPOSITORY')
+    private genresRepository: typeof Genre,
+  ) {}
 
   async create(createGenreDto: CreateGenreDto) {
     const genre = await new this.genresRepository(createGenreDto);

@@ -1,12 +1,13 @@
-import { Inject, Injectable } from "@nestjs/common";
-import { CreateViewDto } from "./dto/create-view.dto";
-import { UpdateViewDto } from "./dto/update-view.dto";
-import { View } from "./entities/view.entity";
+import { Inject, Injectable } from '@nestjs/common';
+import { CreateViewDto } from './dto/create-view.dto';
+import { UpdateViewDto } from './dto/update-view.dto';
+import { View } from './entities/view.entity';
 
 @Injectable()
 export class ViewService {
-  constructor(@Inject("VIEWS_REPOSITORY") private viewsRepository: typeof View) {
-  }
+  constructor(
+    @Inject('VIEWS_REPOSITORY') private viewsRepository: typeof View,
+  ) {}
 
   async findAll(): Promise<View[]> {
     return await this.viewsRepository.findAll();

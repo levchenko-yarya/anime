@@ -1,8 +1,8 @@
-import { Movie } from "./movie.entity";
+import { Movie } from './movie.entity';
 
 export const moviesProviders = [
   {
-    provide: "MOVIES_REPOSITORY",
-    useValue: Movie
-  }
+    provide: 'MOVIES_REPOSITORY',
+    useValue: Movie,
+  },
 ];

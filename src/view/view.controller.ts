@@ -1,14 +1,21 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from "@nestjs/common";
-import { ViewService } from "./view.service";
-import { CreateViewDto } from "./dto/create-view.dto";
-import { UpdateViewDto } from "./dto/update-view.dto";
-import { ApiTags } from "@nestjs/swagger";
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
+import { ViewService } from './view.service';
+import { CreateViewDto } from './dto/create-view.dto';
+import { UpdateViewDto } from './dto/update-view.dto';
+import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('view')
-@Controller("view")
+@Controller('view')
 export class ViewController {
-  constructor(private readonly viewService: ViewService) {
-  }
+  constructor(private readonly viewService: ViewService) {}
 
   @Post()
   create(@Body() createViewDto: CreateViewDto) {
@@ -20,18 +27,18 @@ export class ViewController {
     return this.viewService.findAll();
   }
 
-  @Get(":id")
-  findOne(@Param("id") id: string) {
+  @Get(':id')
+  findOne(@Param('id') id: string) {
     return this.viewService.findOne(id);
   }
 
-  @Patch(":id")
-  update(@Param("id") id: string, @Body() updateViewDto: UpdateViewDto) {
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() updateViewDto: UpdateViewDto) {
     return this.viewService.update(id, updateViewDto);
   }
 
-  @Delete(":id")
-  remove(@Param("id") id: string) {
+  @Delete(':id')
+  remove(@Param('id') id: string) {
     return this.viewService.remove(id);
   }
 }

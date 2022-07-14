@@ -1,16 +1,17 @@
-import { HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
-import { UpdateUserDto } from "./dto/update-user.dto";
-import { User } from "./entities/user.entity";
-import { RegisterDto } from "./register.dto";
-import { Payload } from "../auth/payload";
-import { LoginDto } from "../auth/login.dto";
-import * as bcrypt from "bcrypt";
-import { Repository } from "sequelize-typescript";
+import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { User } from './entities/user.entity';
+import { RegisterDto } from './register.dto';
+import { Payload } from '../auth/payload';
+import { LoginDto } from '../auth/login.dto';
+import * as bcrypt from 'bcrypt';
+import { Repository } from 'sequelize-typescript';
 
 @Injectable()
 export class UserService {
-  constructor(@Inject("USER_REPOSITORY") private usersRepository: Repository<User>) {
-  }
+  constructor(
+    @Inject('USER_REPOSITORY') private usersRepository: Repository<User>,
+  ) {}
 
   async findAll(): Promise<User[]> {
     return await this.usersRepository.findAll();
@@ -34,7 +35,7 @@ export class UserService {
     const { login } = registerDTO;
     const user = await this.usersRepository.findOne({ where: { login } });
     if (user) {
-      throw new HttpException("user already exists", HttpStatus.BAD_REQUEST);
+      throw new HttpException('user already exists', HttpStatus.BAD_REQUEST);
     }
     // @ts-ignore
     return await this.usersRepository.create(registerDTO);
@@ -49,13 +50,12 @@ export class UserService {
     const { login, password } = UserDTO;
     const user = await this.usersRepository.findOne({ where: { login } });
     if (!user) {
-      throw new HttpException("user does not exists", HttpStatus.BAD_REQUEST);
+      throw new HttpException('user does not exists', HttpStatus.BAD_REQUEST);
     }
     if (await bcrypt.compare(password, user.password)) {
       return user;
     } else {
-      throw new HttpException("invalid credential", HttpStatus.BAD_REQUEST);
+      throw new HttpException('invalid credential', HttpStatus.BAD_REQUEST);
     }
   }
-
 }
