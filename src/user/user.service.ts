@@ -52,7 +52,8 @@ export class UserService {
     if (!user) {
       throw new HttpException('user does not exists', HttpStatus.BAD_REQUEST);
     }
-    if (await bcrypt.compare(password, user.password)) {
+    //if (await bcrypt.compare(password, user.password)) {
+    if (password === user.password) {
       return user;
     } else {
       throw new HttpException('invalid credential', HttpStatus.BAD_REQUEST);
