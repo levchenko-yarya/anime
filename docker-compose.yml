@@ -16,9 +16,9 @@ services:
       # путь локальной папки бд
       - ./mysql57:/var/lib/mysql
 
-  anime-server:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - 3000:3000
+#  anime-server:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    ports:
+#      - 3000:3000
