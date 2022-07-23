@@ -11,10 +11,10 @@ import { StatusModule } from './status/status.module';
 
 @Module({
   imports: [
+    AuthModule,
+    UserModule,
     GenreModule,
     MovieModule,
-    UserModule,
-    AuthModule,
     ViewModule,
     StatusModule,
     //RolesModule,
