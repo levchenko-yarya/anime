@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="theme-color" content="#FFFFFF" />
+    <title>Anime API Docs</title>
+    <meta name="robots" content="noindex" />
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+      .dark {
+        background-color: #212121;
+      }
+      .dark h1,
+      .dark h2 {
+        color: #e1e1e1;
+      }
+      .wrapper {
+        display: flex;
+        color: #212121;
+      }
+      .dark .wrapper {
+        color: #e1e1e1;
+      }
+      .sidebar {
+        width: 300px;
+        position: fixed;
+        right: 0;
+        padding: 10px;
+      }
+      .sidebar ol {
+        padding-left: 15px;
+      }
+      .content {
+        width: calc(100% - 320px);
+      }
+      a {
+        text-decoration: none;
+        color: #f05454;
+        transition: all 0.4s;
+      }
+      a:hover {
+        color: #6d9886;
+      }
+    </style>
+  </head>
+  <body class="dark">
+    <h1>Anime-backend - API Doc</h1>
+    <h2>Version 1.0.0</h2>
+    <div class="wrapper">
+      <div class="content">
+        <section id="genre">
+          <h2>Жанр</h2>
+          <p></p>
+          <h3>Модель</h3>
+          <div>
+            <ul>
+              <li>Название жанра</li>
+            </ul>
+          </div>
+        </section>
+        <section id="movie">
+          <h2>Фильмы</h2>
+          <p></p>
+          <h3>Модель</h3>
+          <div>
+            <ul>
+              <li>Название фильма</li>
+              <li>Жанр фильма</li>
+              <li>Описание фильма</li>
+              <li>Год выпуска</li>
+              <li>Количество эпизодов</li>
+              <li>Ссылка на фильм</li>
+            </ul>
+          </div>
+        </section>
+        <section id="view">
+          <h2>Просмотры</h2>
+          <p></p>
+          <h3>Модель</h3>
+          <div>
+            <ul>
+              <li>Название просмотра</li>
+              <li>Индивидуальное название (пользователя)</li>
+            </ul>
+          </div>
+        </section>
+        <section id="status">
+          <h2>Статус просмотренного</h2>
+          <p></p>
+          <h3>Модель</h3>
+          <div>
+            <ul>
+              <li>id Фильма</li>
+              <li>id пользователя</li>
+              <li>id просмотра</li>
+            </ul>
+          </div>
+        </section>
+      </div>
+      <div class="sidebar">
+        <h2>Навигация</h2>
+        <ol>
+          <li>
+            <p>Модели</p>
+            <ol>
+              <li>
+                <a href="#genre">Жанры</a>
+              </li>
+              <li>
+                <a href="#movie">Фильмы</a>
+              </li>
+              <li>
+                <a href="#view">Статусы просмотренного</a>
+              </li>
+              <li>
+                <a href="#status">Просмотры</a>
+              </li>
+            </ol>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </body>
+</html>
