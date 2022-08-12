@@ -1,34 +1,37 @@
 import { Inject, Injectable } from '@nestjs/common';
+import { dataSource } from 'src/dataSource';
 import { CreateStatusDto } from './dto/create-status.dto';
 import { UpdateStatusDto } from './dto/update-status.dto';
-import { Status } from './entities/status.entity';
+import { Status } from './status.entity';
 
 @Injectable()
 export class StatusService {
-  constructor(
-    @Inject('STATUSES_REPOSITORY') private statusesRepository: typeof Status,
-  ) {}
+  constructor(private statusRepository = dataSource.getRepository(Status)) {}
 
   async findAll(): Promise<Status[]> {
-    return await this.statusesRepository.findAll();
+    return await this.statusRepository.find();
   }
 
-  async findOne(id): Promise<Status> {
-    return await this.statusesRepository.findOne({ where: { id } });
+  async findOne(id: number): Promise<Status> {
+    return await this.statusRepository.findOne({ where: { id } });
   }
 
-  create(createStatusDto: CreateStatusDto) {
-    const status = new this.statusesRepository(createStatusDto);
-    return status.save();
+  async create(createStatusDto: CreateStatusDto) {
+    const status = new Status();
+    status.name = createStatusDto.name;
+    return await this.statusRepository.save(status);
   }
 
-  async update(id, updateStatusDto: UpdateStatusDto) {
-    const status = await this.statusesRepository.findOne({ where: { id } });
-    await status.update(updateStatusDto);
+  async update(id: number, updateStatusDto: UpdateStatusDto) {
+    return await this.statusRepository
+      .createQueryBuilder()
+      .update(Status)
+      .where({ id: id })
+      .set({ name: updateStatusDto.name })
+      .execute();
   }
 
-  async remove(id): Promise<void> {
-    const status = await this.findOne(id);
-    await status.destroy();
+  async remove(id: number): Promise<void> {
+    await this.statusRepository.delete(id);
   }
 }
