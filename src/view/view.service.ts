@@ -1,34 +1,39 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import { dataSource } from 'src/dataSource';
 import { CreateViewDto } from './dto/create-view.dto';
 import { UpdateViewDto } from './dto/update-view.dto';
-import { View } from './entities/view.entity';
+import { View } from './view.entity';
 
 @Injectable()
 export class ViewService {
-  constructor(
-    @Inject('VIEWS_REPOSITORY') private viewsRepository: typeof View,
-  ) {}
+  constructor(private viewRepository = dataSource.getRepository(View)) {}
 
   async findAll(): Promise<View[]> {
-    return await this.viewsRepository.findAll();
+    return await this.viewRepository.find();
   }
 
-  async findOne(id): Promise<View> {
-    return await this.viewsRepository.findOne({ where: { id } });
+  async findOne(id: number): Promise<View> {
+    return await this.viewRepository.findOneBy({ id: id });
   }
 
-  create(createViewDto: CreateViewDto) {
-    const view = new this.viewsRepository(createViewDto);
-    return view.save();
+  async create(createViewDto: CreateViewDto) {
+    const view = new View();
+    view.name = createViewDto.name;
+    return await this.viewRepository.save(view);
   }
 
-  async update(id, updateViewDto: UpdateViewDto) {
-    const view = await this.viewsRepository.findOne({ where: { id } });
-    await view.update(updateViewDto);
+  //! check update
+  async update(id: number, updateViewDto: UpdateViewDto) {
+    return await this.viewRepository
+      .createQueryBuilder()
+      .update(View)
+      .where({ id: id })
+      .set({ name: updateViewDto.name })
+      .execute();
   }
 
-  async remove(id) {
-    const view = await this.findOne(id);
-    await view.destroy();
+  //! check delete
+  async remove(id: number) {
+    await this.viewRepository.delete(id);
   }
 }

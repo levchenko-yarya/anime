@@ -1,3 +1,3 @@
 export class UpdateViewDto {
-  readonly name: string;
+  name: string;
 }
