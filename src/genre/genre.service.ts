@@ -5,8 +5,10 @@ import { Genre } from './genre.entity';
 
 @Injectable()
 export class GenreService {
-  constructor(private genreRepository = dataSource.getRepository(Genre)) {}
+  constructor() {}
 
+  genreRepository = dataSource.getRepository(Genre);
+  
   async create(createGenreDto: CreateGenreDto) {
     const genre = new Genre();
     genre.name = createGenreDto.name;

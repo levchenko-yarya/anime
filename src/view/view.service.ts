@@ -6,7 +6,7 @@ import { View } from './view.entity';
 
 @Injectable()
 export class ViewService {
-  constructor(private viewRepository = dataSource.getRepository(View)) {}
+  viewRepository = dataSource.getRepository(View);
 
   async findAll(): Promise<View[]> {
     return await this.viewRepository.find();

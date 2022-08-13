@@ -1,6 +1,5 @@
 import { dataSource } from './../dataSource';
-import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { User } from './user.entity';
 import { RegisterDto } from './register.dto';
 import { Payload } from '../auth/payload';
@@ -8,29 +7,7 @@ import { LoginDto } from '../auth/login.dto';
 
 @Injectable()
 export class UserService {
-  constructor(private userRepository = dataSource.getRepository(User)) {}
-
-  /*
-   * Block comment CRUD User
-
-  async findAll(): Promise<User[]> {
-    return await this.userRepository.find();
-  }
-
-  async findOne(id): Promise<User> {
-    return await this.userRepository.findOne({ where: { id } });
-  }
-
-  async update(id, updateUserDto: UpdateUserDto) {
-    const user = await this.userRepository.findOne({ where: { id } });
-    await user.update(updateUserDto);
-  }
-
-  async remove(id): Promise<void> {
-    const user = await this.userRepository.findOne({ where: { id } });
-    await user.destroy();
-  }
-  */
+  userRepository = dataSource.getRepository(User);
 
   /*=============================================
   =            Authentication User              =

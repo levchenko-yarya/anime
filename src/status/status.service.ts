@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { dataSource } from 'src/dataSource';
 import { CreateStatusDto } from './dto/create-status.dto';
 import { UpdateStatusDto } from './dto/update-status.dto';
@@ -6,7 +6,7 @@ import { Status } from './status.entity';
 
 @Injectable()
 export class StatusService {
-  constructor(private statusRepository = dataSource.getRepository(Status)) {}
+  statusRepository = dataSource.getRepository(Status);
 
   async findAll(): Promise<Status[]> {
     return await this.statusRepository.find();

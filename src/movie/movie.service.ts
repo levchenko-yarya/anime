@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { dataSource } from 'src/dataSource';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
@@ -6,7 +6,7 @@ import { Movie } from './movie.entity';
 
 @Injectable()
 export class MovieService {
-  constructor(private movieRepository = dataSource.getRepository(Movie)) {}
+  movieRepository = dataSource.getRepository(Movie);
 
   async findAll(): Promise<Movie[]> {
     return await this.movieRepository.find();

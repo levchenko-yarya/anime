@@ -4,6 +4,7 @@
 
 # mysql docker
 /mysql57
+/localDB
 
 # Logs
 logs

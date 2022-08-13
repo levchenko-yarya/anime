@@ -28,17 +28,17 @@ export class ViewController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
     return this.viewService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateViewDto: UpdateViewDto) {
+  update(@Param('id') id: number, @Body() updateViewDto: UpdateViewDto) {
     return this.viewService.update(id, updateViewDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     return this.viewService.remove(id);
   }
 }
