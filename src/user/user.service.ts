@@ -9,6 +9,10 @@ import { LoginDto } from '../auth/login.dto';
 export class UserService {
   userRepository = dataSource.getRepository(User);
 
+  async getUser(id: number): Promise<User> {
+    return await this.userRepository.findOne({ where: { id } });
+  }
+
   /*=============================================
   =            Authentication User              =
   =============================================*/
@@ -18,7 +22,11 @@ export class UserService {
     if (user) {
       throw new HttpException('user already exists', HttpStatus.BAD_REQUEST);
     }
-    return this.userRepository.create(registerDTO);
+    const newUser = new User();
+    newUser.username = registerDTO.username;
+    newUser.login = registerDTO.login;
+    newUser.password = registerDTO.password;
+    return await this.userRepository.save(newUser);
   }
 
   async findByPayload(payload: Payload) {

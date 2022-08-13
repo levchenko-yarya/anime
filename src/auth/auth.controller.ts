@@ -1,4 +1,11 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UserService } from '../user/user.service';
 import { RegisterDto } from '../user/register.dto';
@@ -32,8 +39,9 @@ export class AuthController {
 
   @Get('onlyauth')
   @UseGuards(AuthGuard('jwt'))
-  async auth() {
-    return 'only auth users';
+  async auth(@Request() req) {
+    const user = await this.userService.getUser(req.user.id);
+    return { message: 'only auth users', user: user };
   }
 
   @Get('anyone')
