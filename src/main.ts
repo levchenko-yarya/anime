@@ -4,6 +4,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { dataSource } from './dataSource';
 import { View } from './view/view.entity';
+import { Genre } from './genre/genre.entity';
 import { join } from 'path';
 
 async function bootstrap() {
@@ -46,6 +47,20 @@ async function bootstrap() {
       view3.id = 3;
       view3.name = 'Просмотрено';
       await dataSource.manager.save(view3);
+      
+      /*-- seeding view genre --*/
+      const genre1 = new Genre();
+      genre1.id = 1;
+      genre1.name = 'Боевик';
+      await dataSource.manager.save(genre1);
+      const genre2 = new Genre();
+      genre2.id = 2;
+      genre2.name = 'Романтика';
+      await dataSource.manager.save(genre2);
+      const genre3 = new Genre();
+      genre3.id = 3;
+      genre3.name = 'Фентези';
+      await dataSource.manager.save(genre3);
     })
     .catch((error) => console.log(error));
   await dataSource.synchronize();
