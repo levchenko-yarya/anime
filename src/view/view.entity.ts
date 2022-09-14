@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from 'src/user/user.entity';
 
 @Entity()
 export class View {
@@ -7,4 +8,7 @@ export class View {
 
   @Column()
   name: string;
+
+  @ManyToOne(() => User, (user) => user.id)
+  user: User;
 }
